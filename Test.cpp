@@ -47,6 +47,24 @@ TEST_CASE("test of function find"){
     CHECK(t.find("great-great-grandmother") == string("Shoshana"));
 } //7
 
+TEST_CASE("test if remove worked"){
+    t.remove("Emmanuel");
+    CHECK(t.find("Meir") == string("unrelated"));
+    CHECK(t.find("Tali") == string("unrelated"));
+    CHECK(t.find("Yvette") == string("unrelated"));
+    CHECK(t.find("Shoshana") == string("unrelated"));
+    CHECK(t.find("Michael") == string("unrelated"));
+} //5
+
+TEST_CASE("test of wrong find"){
+    CHECK(t.find("uncle") == string("unrelated"));
+    CHECK(t.find("cousin") == string("unrelated"));
+    CHECK(t.find("brother") == string("unrelated"));
+    CHECK(t.find("sister") == string("unrelated"));
+} //4
+
+
+
 //////////////////////////////////////////////////////
 /////////////////////// Israel ///////////////////////
 //////////////////////////////////////////////////////
@@ -189,7 +207,8 @@ TEST_CASE("test of wrong relation"){
     CHECK(KookFamilly.find("Natan") == string("unrelated"));
     CHECK(KookFamilly.find("Rahel") == string("unrelated"));
     CHECK(KookFamilly.find("Aaron") == string("unrelated"));
-} //6
+    CHECK(KookFamilly.find("Adam") == string("unrelated"));
+} //7
 
 TEST_CASE("test of wrong find"){
     CHECK(KookFamilly.find("uncle") == string("unrelated"));
