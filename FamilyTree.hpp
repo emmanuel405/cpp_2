@@ -1,4 +1,6 @@
 
+using namespace std;
+
 void addFather(string son, string father);
 
 void addMother(string son, string mother);
@@ -9,4 +11,4 @@ string find(string relation);
 
 void remove(string name);
 
-string display(FamilyTree t);
+string display(Tree t);
