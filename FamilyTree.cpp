@@ -1,4 +1,4 @@
-/*
+
 #include <iostream>
 #include <string>
 
@@ -9,78 +9,33 @@ using namespace std;
 string toRelateFather(string relat);
 string toRelateMother(string relat);
 
-struct Node{
-    public:
-    string name;
-    string relat;
-    Node father;
-    Node mother;
-    Node child;
-
-}
-Node::Node(){
-    *(this)->name = "";
-    *(this)->relat = "";
-}
-
-Node::Node(string name){
-    *(this)->name = name;
-    *(this)->relat = "";
-}
-
-Node::~Node(string name){
-}
-
-namespace family{
-    class Tree{
-    private:
-        Node root(string name);
-    public:
-        Tree(string name){
-            root(name);
-        }
-        ~Tree();
-    };
-    
-    Tree::Tree(/* args *//*){
-
-    }
-    
-    Tree::~Tree(){
-
-    }
+Tree& Tree::addFather(string son, string father){
     
 }
 
-void addFather(string son, string father){
-    Node n = new Node(father);
-    string relation_son = 
+Tree& Tree::addMother(string son, string mother){
     
 }
 
-void addMother(string son, string mother){
-    Node n = new Node(mother);
-}
-
-string relation(string name){
-    // if tree = null -> return "unrelated";
+string Tree::relation(string name){
+    // if tree == null -> return "unrelated";
     // search inorder(name)
     // return name[node]->relation
 }
 
-string find(string relation){
+string Tree::find(string relation){
     // if tree = null -> return "unrelated";
     // go to father or mother תלוי
     // if I find return the name of this node
 }
 
-void remove(string name){
+void Tree::remove(string name){
     // if tree = null -> return "unrelated";
     // search inorder(name)
     
 }
 
-string display(Tree t){
+void Tree::display(Tree t){
 
 }
 
@@ -108,7 +63,7 @@ string toRelateMother(string relat){
         
 
 }
-*/
+
 /*
 addFather
 addMother
