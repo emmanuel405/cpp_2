@@ -6,7 +6,6 @@
 
 using namespace std;
 
-
 //////////////////////////////////////////////////////
 /////////////////////// FAMILLY //////////////////////
 //////////////////////////////////////////////////////
@@ -49,11 +48,11 @@ TEST_CASE("test of function find"){
 
 TEST_CASE("test if remove worked"){
     t.remove("Emmanuel");
-    CHECK(t.find("Meir") == string("unrelated"));
-    CHECK(t.find("Tali") == string("unrelated"));
-    CHECK(t.find("Yvette") == string("unrelated"));
-    CHECK(t.find("Shoshana") == string("unrelated"));
-    CHECK(t.find("Michael") == string("unrelated"));
+    CHECK(t.relation("Meir") == string("unrelated"));
+    CHECK(t.relation("Tali") == string("unrelated"));
+    CHECK(t.relation("Yvette") == string("unrelated"));
+    CHECK(t.relation("Shoshana") == string("unrelated"));
+    CHECK(t.relation("Michael") == string("unrelated"));
 }
 
 TEST_CASE("test of wrong find"){
@@ -104,11 +103,11 @@ TEST_CASE("test of function find"){
 
 TEST_CASE("test if remove worked"){
     Israel.remove("Itshak");
-    CHECK(Israel.find("Itshak") == string("unrelated"));
-    CHECK(Israel.find("Avraham") == string("unrelated"));
-    CHECK(Israel.find("Sarah") == string("unrelated"));
-    CHECK(Israel.find("Terah") == string("unrelated"));
-    CHECK(Israel.find("Betuel") == string("unrelated"));
+    CHECK(Israel.relation("Itshak") == string("unrelated"));
+    CHECK(Israel.relation("Avraham") == string("unrelated"));
+    CHECK(Israel.relation("Sarah") == string("unrelated"));
+    CHECK(Israel.relation("Terah") == string("unrelated"));
+    CHECK(Israel.relation("Betuel") == string("unrelated"));
 }
 
 //////////////////////////////////////////////////////
@@ -146,15 +145,15 @@ TEST_CASE("test of function find"){
 }
 
 TEST_CASE("test of wrong relation"){
-    CHECK(Kingdom.find("Shmouel") == string("unrelated"));
-    CHECK(Kingdom.find("Noa") == string("unrelated"));
-    CHECK(Kingdom.find("Yeoshoua") == string("unrelated"));
-    CHECK(Kingdom.find("Shimon") == string("unrelated"));
-    CHECK(Kingdom.find("Eliezer") == string("unrelated"));
-    CHECK(Kingdom.find("Binyamin") == string("unrelated"));
-    CHECK(Kingdom.find("Shaoul") == string("unrelated"));
-    CHECK(Kingdom.find("Yerovam") == string("unrelated"));
-    CHECK(Kingdom.find("Yshay") == string("unrelated"));
+    CHECK(Kingdom.relation("Shmouel") == string("unrelated"));
+    CHECK(Kingdom.relation("Noa") == string("unrelated"));
+    CHECK(Kingdom.relation("Yeoshoua") == string("unrelated"));
+    CHECK(Kingdom.relation("Shimon") == string("unrelated"));
+    CHECK(Kingdom.relation("Eliezer") == string("unrelated"));
+    CHECK(Kingdom.relation("Binyamin") == string("unrelated"));
+    CHECK(Kingdom.relation("Shaoul") == string("unrelated"));
+    CHECK(Kingdom.relation("Yerovam") == string("unrelated"));
+    CHECK(Kingdom.relation("Yshay") == string("unrelated"));
 }
 
 TEST_CASE("test of wrong find"){
@@ -201,13 +200,13 @@ TEST_CASE("test of function find"){
 }
 
 TEST_CASE("test of wrong relation"){
-    CHECK(KookFamilly.find("Emmanuel") == string("unrelated"));
-    CHECK(KookFamilly.find("Lea") == string("unrelated"));
-    CHECK(KookFamilly.find("Moshe") == string("unrelated"));
-    CHECK(KookFamilly.find("Natan") == string("unrelated"));
-    CHECK(KookFamilly.find("Rahel") == string("unrelated"));
-    CHECK(KookFamilly.find("Aaron") == string("unrelated"));
-    CHECK(KookFamilly.find("Adam") == string("unrelated"));
+    CHECK(KookFamilly.relation("Emmanuel") == string("unrelated"));
+    CHECK(KookFamilly.relation("Lea") == string("unrelated"));
+    CHECK(KookFamilly.relation("Moshe") == string("unrelated"));
+    CHECK(KookFamilly.relation("Natan") == string("unrelated"));
+    CHECK(KookFamilly.relation("Rahel") == string("unrelated"));
+    CHECK(KookFamilly.relation("Aaron") == string("unrelated"));
+    CHECK(KookFamilly.relation("Adam") == string("unrelated"));
 }
 
 TEST_CASE("test of wrong find"){
