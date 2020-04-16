@@ -49,8 +49,8 @@ Tree& Tree::addMother(string son, string mother){
     // }
 }
 
-string Tree::relation(string name){
-    return ex;
+string relation(string name){
+    return name;
 
     // if(this == NULL){ // if tree == null -> return "unrelated";
     //     cout << ex << endl;
@@ -60,8 +60,8 @@ string Tree::relation(string name){
     // return ans;  
 }
 
-string Tree::find(string relation){
-    return ex;
+string find(string relation){
+    return relation;
     // if(this == NULL){ // if tree == null -> return "unrelated";
     //     cout << ex << endl;
     //     throw "The tree is empty";

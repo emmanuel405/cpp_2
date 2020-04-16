@@ -13,58 +13,65 @@ using namespace family;
 //////////////////////////////////////////////////////
 
 
-Tree build(string n){
-    Tree t(n);
-    t.addFather(n, "Emmanuel");
-    t.addMother(n, "Lea");
-    t.addFather("Emmanuel", "Meir");
-    t.addMother("Emmanuel", "Tali");
-    t.addFather("Meir", "Chalom");
-    t.addMother("Meir", "Yvette");
-    t.addFather("Lea", "Sarah");
-    t.addMother("Lea", "Avraham");
-    t.addFather("Tali", "Marcell");
-    t.addMother("Tali", "Michael");
-    t.addMother("Michael", "Shoshana");
+Tree* build(string n){
+    Tree *t = new Tree(n);
+    t->addFather(n, "Emmanuel");
+    t->addMother(n, "Lea");
+    t->addFather("Emmanuel", "Meir");
+    t->addMother("Emmanuel", "Tali");
+    t->addFather("Meir", "Chalom");
+    t->addMother("Meir", "Yvette");
+    t->addFather("Lea", "Sarah");
+    t->addMother("Lea", "Avraham");
+    t->addFather("Tali", "Marcell");
+    t->addMother("Tali", "Michael");
+    t->addMother("Michael", "Shoshana");
     return t;
 }
-Tree t = build("shany");
 
 TEST_CASE("test of function relation"){
-    CHECK(t.relation("Shany") == string("me"));
-    CHECK(t.relation("Emmanuel") == string("father"));
-    CHECK(t.relation("Lea") == string("mother"));
-    CHECK(t.relation("Sarah") == string("grandmother"));
-    CHECK(t.relation("Avraham") == string("grandfather"));
-    CHECK(t.relation("Meir") == string("grandfather"));
-    CHECK(t.relation("Yvette") == string("great-grandmother"));
-    CHECK(t.relation("Michael") == string("great-grandfather"));
+    Tree *t;
+    t = build("Shany");
+    CHECK(t->relation("Shany") == string("me"));
+    CHECK(t->relation("Emmanuel") == string("father"));
+    CHECK(t->relation("Lea") == string("mother"));
+    CHECK(t->relation("Sarah") == string("grandmother"));
+    CHECK(t->relation("Avraham") == string("grandfather"));
+    CHECK(t->relation("Meir") == string("grandfather"));
+    CHECK(t->relation("Yvette") == string("great-grandmother"));
+    CHECK(t->relation("Michael") == string("great-grandfather"));
 }
 
 TEST_CASE("test of function find"){
-    CHECK(t.find("me") == string("Shany"));
-    CHECK(t.find("father") == string("Emmanuel"));
-    CHECK(t.find("mother") == string("Lea"));
-    CHECK((t.find("grandmother") == string("Tali") || t.find("grandmother") == string("Sarah")));
-    CHECK((t.find("grandfather") == string("Meir") || t.find("grandfather") == string("Avraham")));
-    CHECK((t.find("great-grandfather") == string("Yvette") || t.find("great-grandfather") == string("Marcell")));
-    CHECK(t.find("great-great-grandmother") == string("Shoshana"));
+Tree *t;
+    t = build("Shany");
+    CHECK(t->find("me") == string("Shany"));
+    CHECK(t->find("father") == string("Emmanuel"));
+    CHECK(t->find("mother") == string("Lea"));
+    CHECK((t->find("grandmother") == string("Tali") || t->find("grandmother") == string("Sarah")));
+    CHECK((t->find("grandfather") == string("Meir") || t->find("grandfather") == string("Avraham")));
+    CHECK((t->find("great-grandfather") == string("Yvette") || t->find("great-grandfather") == string("Marcell")));
+    CHECK(t->find("great-great-grandmother") == string("Shoshana"));
 }
 
 TEST_CASE("test if remove worked"){
-    t.remove("Emmanuel");
-    CHECK(t.relation("Meir") == string("unrelated"));
-    CHECK(t.relation("Tali") == string("unrelated"));
-    CHECK(t.relation("Yvette") == string("unrelated"));
-    CHECK(t.relation("Shoshana") == string("unrelated"));
-    CHECK(t.relation("Michael") == string("unrelated"));
+Tree *t;
+    t = build("Shany");
+    t->remove("Emmanuel");
+    CHECK(t->relation("Meir") == string("unrelated"));
+    CHECK(t->relation("Tali") == string("unrelated"));
+    CHECK(t->relation("Yvette") == string("unrelated"));
+    CHECK(t->relation("Shoshana") == string("unrelated"));
+    CHECK(t->relation("Michael") == string("unrelated"));
 }
 
 TEST_CASE("test of wrong find"){
-    CHECK(t.find("uncle") == string("unrelated"));
-    CHECK(t.find("cousin") == string("unrelated"));
-    CHECK(t.find("brother") == string("unrelated"));
-    CHECK(t.find("sister") == string("unrelated"));
+Tree *t;
+    t = build("Shany");
+    CHECK(t->find("uncle") == string("unrelated"));
+    CHECK(t->find("cousin") == string("unrelated"));
+    CHECK(t->find("brother") == string("unrelated"));
+    CHECK(t->find("sister") == string("unrelated"));
 }
 
 
@@ -88,7 +95,7 @@ Tree Israelbuild(string n){
     return t;
 }
 
-Tree Israel = Israelbuild("Reuven");
+static Tree Israel = Israelbuild("Reuven");
 
 TEST_CASE("test of function relation"){
     CHECK(Israel.relation("Reuven") == string("me"));
@@ -106,8 +113,8 @@ TEST_CASE("test of function find"){
     CHECK(Israel.find("father") == string("Yaakov"));
     CHECK(Israel.find("mother") == string("Lea"));
     CHECK(Israel.find("grandmother") == string("Rivka"));
-    CHECK((Israel.find("grandfather") == string("Itshak") || t.find("grandfather") == string("Lavane")));
-    CHECK((Israel.find("great-grandfather") == string("Avraham") || t.find("great-grandfather") == string("Betuel")));
+    CHECK((Israel.find("grandfather") == string("Itshak") || Israel.find("grandfather") == string("Lavane")));
+    CHECK((Israel.find("great-grandfather") == string("Avraham") || Israel.find("great-grandfather") == string("Betuel")));
     CHECK(Israel.find("great-great-grandfather") == string("Terah"));
 }
 
@@ -136,7 +143,7 @@ Tree Kingdombuild(string n){
     return t;
 }
 
-Tree Kingdom = Kingdombuild("Yehoshfat");
+static Tree Kingdom = Kingdombuild("Yehoshfat");
     
 TEST_CASE("test of function relation"){
     CHECK(Kingdom.relation("Yehoshfat") == string("me"));
@@ -198,7 +205,7 @@ Tree Kookmbuild(string n){
     return t;
 }
 
-Tree KookFamilly = Kookmbuild("Tzvi");
+static Tree KookFamilly = Kookmbuild("Tzvi");
 
 TEST_CASE("test of function relation"){
     CHECK(KookFamilly.relation("Tzvi") == string("me"));

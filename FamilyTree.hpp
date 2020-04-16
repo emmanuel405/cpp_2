@@ -16,6 +16,12 @@ namespace family{
         Tree* child;
 
     // constructor
+    Tree(){
+        this->name = "";
+        this->father = NULL;
+        this->mother = NULL;
+        this->child = NULL;
+    }
     Tree(string name){
         this->name = name;
         this->father = NULL;
