@@ -7,13 +7,12 @@
 using namespace std;
 using namespace family;
 
-
 //////////////////////////////////////////////////////
 /////////////////////// FAMILLY //////////////////////
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 
-family::Tree t ("Shany");
+static Tree t ("Shany");
     t.addFather("Shany", "Emmanuel"));
     t.addMother("Shany", "Lea"));
     t.addFather("Emmanuel", "Meir"));
@@ -71,7 +70,7 @@ TEST_CASE("test of wrong find"){
 //////////////////////////////////////////////////////
 
 
-family::Tree Israel ("Reuven");
+static Tree Israel ("Reuven");
     Israel.addFather("Reuven", "Yaakov");
     Israel.addMother("Reuven", "Lea");
     Israel.addFather("Yaakov", "Itshak");
@@ -116,8 +115,7 @@ TEST_CASE("test if remove worked"){
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 
-
-family::Tree Kingdom ("Yehoshfat");
+static Tree Kingdom ("Yehoshfat");
     Kingdom.addFather("Yehoshfat", "Assa");
     Kingdom.addFather("Assa", "Avia");
     Kingdom.addFather("Avia", "Rehavam");
@@ -174,7 +172,7 @@ TEST_CASE("test of wrong find"){
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 
-family::Tree KookFamilly ("Tzvi");
+static Tree KookFamilly ("Tzvi");
     KookFamilly.addFather("Tzvi", "Avraham");
     KookFamilly.addMother("Tzvi", "Rivka");
     KookFamilly.addFather("Avraham", "Shelomo");
