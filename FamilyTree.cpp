@@ -11,8 +11,7 @@ static string ex = "unrelated";
 
 Tree& Tree::addFather(string son, string father){
     Tree t("e");
-    Tree& t_r = t;
-    return t_r;
+    return t;
     // if(this == NULL){ // if tree == null -> return "unrelated";
     //     cout << ex << endl;
     //     throw "The tree is empty";
@@ -31,8 +30,7 @@ Tree& Tree::addFather(string son, string father){
 
 Tree& Tree::addMother(string son, string mother){
     Tree t("e");
-    Tree& t_r = t;
-    return t_r;
+    return t;
     // if(this == NULL){ // if tree == null -> return "unrelated";
     //     cout << ex << endl;
     //     throw "The tree is empty";
