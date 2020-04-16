@@ -12,18 +12,23 @@ using namespace family;
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 
-static Tree t ("Shany");
-    t.addFather("Shany", "Emmanuel"));
-    t.addMother("Shany", "Lea"));
-    t.addFather("Emmanuel", "Meir"));
-    t.addMother("Emmanuel", "Tali"));
-    t.addFather("Meir", "Chalom"));
-    t.addMother("Meir", "Yvette"));
-    t.addFather("Lea", "Sarah"));
-    t.addMother("Lea", "Avraham"));
-    t.addFather("Tali", "Marcell"));
-    t.addMother("Tali", "Michael"));
-    t.addMother("Michael", "Shoshana"));
+
+Tree build(string n){
+    Tree t(n);
+    t.addFather(n, "Emmanuel");
+    t.addMother(n, "Lea");
+    t.addFather("Emmanuel", "Meir");
+    t.addMother("Emmanuel", "Tali");
+    t.addFather("Meir", "Chalom");
+    t.addMother("Meir", "Yvette");
+    t.addFather("Lea", "Sarah");
+    t.addMother("Lea", "Avraham");
+    t.addFather("Tali", "Marcell");
+    t.addMother("Tali", "Michael");
+    t.addMother("Michael", "Shoshana");
+    return t;
+}
+Tree t = build("shany");
 
 TEST_CASE("test of function relation"){
     CHECK(t.relation("Shany") == string("me"));
@@ -41,7 +46,7 @@ TEST_CASE("test of function find"){
     CHECK(t.find("father") == string("Emmanuel"));
     CHECK(t.find("mother") == string("Lea"));
     CHECK((t.find("grandmother") == string("Tali") || t.find("grandmother") == string("Sarah")));
-    CHECK(t.find("grandfather") == string("Meir") t.find("grandfather") == string("Avraham"));
+    CHECK((t.find("grandfather") == string("Meir") || t.find("grandfather") == string("Avraham")));
     CHECK((t.find("great-grandfather") == string("Yvette") || t.find("great-grandfather") == string("Marcell")));
     CHECK(t.find("great-great-grandmother") == string("Shoshana"));
 }
@@ -70,15 +75,20 @@ TEST_CASE("test of wrong find"){
 //////////////////////////////////////////////////////
 
 
-static Tree Israel ("Reuven");
-    Israel.addFather("Reuven", "Yaakov");
-    Israel.addMother("Reuven", "Lea");
-    Israel.addFather("Yaakov", "Itshak");
-    Israel.addMother("Yaakov", "Rivka");
-    Israel.addFather("Itshak", "Avraham");
-    Israel.addMother("Itshak", "Sarah");
-    Israel.addFather("Avraham", "Terah");
-    Israel.addFather("Rivka", "Betuel");
+Tree Israelbuild(string n){
+    Tree t(n);
+    t.addFather(n, "Yaakov");
+    t.addMother(n, "Lea");
+    t.addFather("Yaakov", "Itshak");
+    t.addMother("Yaakov", "Rivka");
+    t.addFather("Itshak", "Avraham");
+    t.addMother("Itshak", "Sarah");
+    t.addFather("Avraham", "Terah");
+    t.addFather("Rivka", "Betuel");
+    return t;
+}
+
+Tree Israel = Israelbuild("Reuven");
 
 TEST_CASE("test of function relation"){
     CHECK(Israel.relation("Reuven") == string("me"));
@@ -115,14 +125,19 @@ TEST_CASE("test if remove worked"){
 //////////////////////////////////////////////////////
 //////////////////////////////////////////////////////
 
-static Tree Kingdom ("Yehoshfat");
-    Kingdom.addFather("Yehoshfat", "Assa");
-    Kingdom.addFather("Assa", "Avia");
-    Kingdom.addFather("Avia", "Rehavam");
-    Kingdom.addFather("Rehavam", "Shelomo");
-    Kingdom.addFather("Shelomo", "David");
-    Kingdom.addFather("Shelomo", "Elisheva");
+Tree Kingdombuild(string n){
+    Tree t(n);
+    t.addFather(n, "Assa");
+    t.addFather("Assa", "Avia");
+    t.addFather("Avia", "Rehavam");
+    t.addFather("Rehavam", "Shelomo");
+    t.addFather("Shelomo", "David");
+    t.addFather("Shelomo", "Elisheva");
+    return t;
+}
 
+Tree Kingdom = Kingdombuild("Yehoshfat");
+    
 TEST_CASE("test of function relation"){
     CHECK(Kingdom.relation("Yehoshfat") == string("me"));
     CHECK(Kingdom.relation("Assa") == string("father"));
@@ -172,13 +187,18 @@ TEST_CASE("test of wrong find"){
 /////////////////////////////////////////////////////
 /////////////////////////////////////////////////////
 
-static Tree KookFamilly ("Tzvi");
-    KookFamilly.addFather("Tzvi", "Avraham");
-    KookFamilly.addMother("Tzvi", "Rivka");
-    KookFamilly.addFather("Avraham", "Shelomo");
-    KookFamilly.addMother("Avraham", "Farel");
-    KookFamilly.addFather("Shelomo", "Nahume");
 
+Tree Kookmbuild(string n){
+    Tree t(n);
+    t.addFather(n, "Avraham");
+    t.addMother(n, "Rivka");
+    t.addFather("Avraham", "Shelomo");
+    t.addMother("Avraham", "Farel");
+    t.addFather("Shelomo", "Nahume");
+    return t;
+}
+
+Tree KookFamilly = Kookmbuild("Tzvi");
 
 TEST_CASE("test of function relation"){
     CHECK(KookFamilly.relation("Tzvi") == string("me"));
