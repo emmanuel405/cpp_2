@@ -14,16 +14,16 @@ using namespace std;
 
 family::Tree t ("Shany");
     t.addFather("Shany", "Emmanuel"));
-    .addMother("Shany", "Lea"));
-    .addFather("Emmanuel", "Meir"));
-    .addMother("Emmanuel", "Tali"));
-    .addFather("Meir", "Chalom"));
-    .addMother("Meir", "Yvette"));
-    .addFather("Lea", "Sarah"));
-    .addMother("Lea", "Avraham"));
-    .addFather("Tali", "Marcell"));
-    .addMother("Tali", "Michael"));
-    .addMother("Michael", "Shoshana"));
+    t.addMother("Shany", "Lea"));
+    t.addFather("Emmanuel", "Meir"));
+    t.addMother("Emmanuel", "Tali"));
+    t.addFather("Meir", "Chalom"));
+    t.addMother("Meir", "Yvette"));
+    t.addFather("Lea", "Sarah"));
+    t.addMother("Lea", "Avraham"));
+    t.addFather("Tali", "Marcell"));
+    t.addMother("Tali", "Michael"));
+    t.addMother("Michael", "Shoshana"));
 
 TEST_CASE("test of function relation"){
     CHECK(t.relation("Shany") == string("me"));
@@ -72,13 +72,13 @@ TEST_CASE("test of wrong find"){
 
 family::Tree Israel ("Reuven");
     Israel.addFather("Reuven", "Yaakov");
-    .addMother("Reuven", "Lea");
-    .addFather("Yaakov", "Itshak");
-    .addMother("Yaakov", "Rivka");
-    .addFather("Itshak", "Avraham");
-    .addMother("Itshak", "Sarah");
-    .addFather("Avraham", "Terah");
-    .addFather("Rivka", "Betuel");
+    Israel.addMother("Reuven", "Lea");
+    Israel.addFather("Yaakov", "Itshak");
+    Israel.addMother("Yaakov", "Rivka");
+    Israel.addFather("Itshak", "Avraham");
+    Israel.addMother("Itshak", "Sarah");
+    Israel.addFather("Avraham", "Terah");
+    Israel.addFather("Rivka", "Betuel");
 
 TEST_CASE("test of function relation"){
     CHECK(Israel.relation("Reuven") == string("me"));
@@ -118,11 +118,11 @@ TEST_CASE("test if remove worked"){
 
 family::Tree Kingdom ("Yehoshfat");
     Kingdom.addFather("Yehoshfat", "Assa");
-    .addFather("Assa", "Avia");
-    .addFather("Avia", "Rehavam");
-    .addFather("Rehavam", "Shelomo");
-    .addFather("Shelomo", "David");
-    .addFather("Shelomo", "Elisheva");
+    Kingdom.addFather("Assa", "Avia");
+    Kingdom.addFather("Avia", "Rehavam");
+    Kingdom.addFather("Rehavam", "Shelomo");
+    Kingdom.addFather("Shelomo", "David");
+    Kingdom.addFather("Shelomo", "Elisheva");
 
 TEST_CASE("test of function relation"){
     CHECK(Kingdom.relation("Yehoshfat") == string("me"));
@@ -175,10 +175,10 @@ TEST_CASE("test of wrong find"){
 
 family::Tree KookFamilly ("Tzvi");
     KookFamilly.addFather("Tzvi", "Avraham");
-    .addMother("Tzvi", "Rivka");
-    .addFather("Avraham", "Shelomo");
-    .addMother("Avraham", "Farel");
-    .addFather("Shelomo", "Nahume");
+    KookFamilly.addMother("Tzvi", "Rivka");
+    KookFamilly.addFather("Avraham", "Shelomo");
+    KookFamilly.addMother("Avraham", "Farel");
+    KookFamilly.addFather("Shelomo", "Nahume");
 
 
 TEST_CASE("test of function relation"){

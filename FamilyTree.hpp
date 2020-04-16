@@ -32,7 +32,7 @@ namespace family{
 
     // destructor
     ~Tree(string name){
-        
+        cout << "Dstor" << endl;
     }
     
 public:
@@ -44,10 +44,14 @@ string relation(string name);
 string find(string relation);
 
 void remove(string name);
-void display(Tree t);
+void display(Tree *t);
+
 
 private:
 
+Tree find_the_name(Tree t, string name2find);
+
+string find_with_name(Tree t, string name2find);
 string toRelateFather(string relat);
 string toRelateMother(string relat);
 
