@@ -45,8 +45,8 @@ namespace family{
 Tree& addFather(string son, string father);
 Tree& addMother(string son, string mother);
 
-string relation(string name);
-string find(string relation);
+string relation(string);
+string find(string);
 
 void remove(string name);
 void display(Tree *t);
