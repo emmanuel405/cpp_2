@@ -10,8 +10,8 @@ using namespace family;
 static string ex = "unrelated";
 
 Tree& Tree::addFather(string son, string father){
-    Tree t("e");
-    return t;
+       return *this;
+
     // if(this == NULL){ // if tree == null -> return "unrelated";
     //     cout << ex << endl;
     //     throw "The tree is empty";
@@ -29,8 +29,7 @@ Tree& Tree::addFather(string son, string father){
 }
 
 Tree& Tree::addMother(string son, string mother){
-    Tree t("e");
-    return t;
+    return *this;
     // if(this == NULL){ // if tree == null -> return "unrelated";
     //     cout << ex << endl;
     //     throw "The tree is empty";
