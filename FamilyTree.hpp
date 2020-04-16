@@ -31,11 +31,10 @@ namespace family{
     }
 
     // destructor
-    ~Tree(string name){
+    ~Tree(){
         cout << "Dstor" << endl;
     }
     
-public:
 
 Tree& addFather(string son, string father);
 Tree& addMother(string son, string mother);
@@ -49,12 +48,12 @@ void display(Tree *t);
 
 private:
 
-Tree find_the_name(Tree t, string name2find);
+// Tree find_the_name(Tree t, string name2find);
 
-string find_with_name(Tree t, string name2find);
-string toRelateFather(string relat);
-string toRelateMother(string relat);
+// string find_with_name(Tree t, string name2find);
+// string toRelateFather(string relat);
+// string toRelateMother(string relat);
 
-void preorder(Tree *t);
+// void preorder(Tree *t);
     };
 }

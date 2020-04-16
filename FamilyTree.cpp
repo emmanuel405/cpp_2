@@ -10,68 +10,79 @@ using namespace family;
 static string ex = "unrelated";
 
 Tree& Tree::addFather(string son, string father){
-    if(this == NULL){ // if tree == null -> return "unrelated";
-        cout << ex << endl;
-        throw "The tree is empty";
-    }
-    Tree tmp = find_the_name(this, son);
-    Tree *s = &tmp;
-    if(s == NULL){
-        cout << ex << endl;
-        throw "The son not find";
-    }
-    else {
-        Tree newFather = Tree(father, s);
-        return *this;
-    }
+    // if(this == NULL){ // if tree == null -> return "unrelated";
+    //     cout << ex << endl;
+    //     throw "The tree is empty";
+    // }
+    // Tree tmp = find_the_name(this, son);
+    // Tree *s = &tmp;
+    // if(s == NULL){
+    //     cout << ex << endl;
+    //     throw "The son not find";
+    // }
+    // else {
+    //     Tree newFather = Tree(father, s);
+    //     return *this;
+    // }
+    cout << "part a" << endl;
 }
 
 Tree& Tree::addMother(string son, string mother){
-    if(this == NULL){ // if tree == null -> return "unrelated";
-        cout << ex << endl;
-        throw "The tree is empty";
-    }
-    Tree tmp = find_the_name(this, son);
-    Tree *s = &tmp;
-    if(s == NULL){
-        cout << ex << endl;
-        throw "The son not find";
-    }
-    else {
-        Tree newMother = Tree(mother, s);
-        return *this;
-    }
+    cout << "part a" << endl;
+    
+    // if(this == NULL){ // if tree == null -> return "unrelated";
+    //     cout << ex << endl;
+    //     throw "The tree is empty";
+    // }
+    // Tree tmp = find_the_name(this, son);
+    // Tree *s = &tmp;
+    // if(s == NULL){
+    //     cout << ex << endl;
+    //     throw "The son not find";
+    // }
+    // else {
+    //     Tree newMother = Tree(mother, s);
+    //     return *this;
+    // }
 }
 
 string Tree::relation(string name){
-    if(this == NULL){ // if tree == null -> return "unrelated";
-        cout << ex << endl;
-        throw "The tree is empty";
-    }
-    string ans = find_with_name(this, name); // search like inorder with this name and return the relation of this name
-    return ans;  
+    cout << "part a" << endl;
+
+    // if(this == NULL){ // if tree == null -> return "unrelated";
+    //     cout << ex << endl;
+    //     throw "The tree is empty";
+    // }
+    // string ans = find_with_name(this, name); // search like inorder with this name and return the relation of this name
+    // return ans;  
 }
 
 string Tree::find(string relation){
-    if(this == NULL){ // if tree == null -> return "unrelated";
-        cout << ex << endl;
-        throw "The tree is empty";
-    }
+    cout << "part a" << endl;
+
+    // if(this == NULL){ // if tree == null -> return "unrelated";
+    //     cout << ex << endl;
+    //     throw "The tree is empty";
+    // }
     // size_t pos = str.find("mother"); ??
     // go to mother and father תלוי
     // if I find return the name of this node
 }
 
 void Tree::remove(string name){
-    if(this == NULL){ // if tree == null -> return "unrelated";
-        cout << ex << endl;
-        throw "The tree is empty";
-    }
+    cout << "part a" << endl;
+
+    // if(this == NULL){ // if tree == null -> return "unrelated";
+    //     cout << ex << endl;
+    //     throw "The tree is empty";
+    // }
     // search with inorder(name)
 }
 
 void Tree::display(Tree *t){
-    preorder(t);
+    cout << "part a" << endl;
+   
+    // preorder(t);
 }
 
 
@@ -80,7 +91,7 @@ void Tree::display(Tree *t){
 ////////////////////////////////////////
 ////////////////////////////////////////
 
-
+/*
 string toRelateFather(string relat){
     string ans = "";
     if(relat == string("me"))
@@ -128,7 +139,7 @@ Tree find_the_name(Tree t, string name2find){
     return NULL;
 }
 
-/*
+
 addFather
 addMother
 relation(string name) -> relation
