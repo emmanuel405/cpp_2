@@ -7,239 +7,181 @@
 using namespace std;
 using namespace family;
 
-//////////////////////////////////////////////////////
-/////////////////////// FAMILLY //////////////////////
-//////////////////////////////////////////////////////
-//////////////////////////////////////////////////////
-
-
-Tree* build(string n){
+Tree* tree_familly(string n){
     Tree *t = new Tree(n);
-    t->addFather(n, "Emmanuel");
-    t->addMother(n, "Lea");
-    t->addFather("Emmanuel", "Meir");
-    t->addMother("Emmanuel", "Tali");
-    t->addFather("Meir", "Chalom");
-    t->addMother("Meir", "Yvette");
-    t->addFather("Lea", "Sarah");
-    t->addMother("Lea", "Avraham");
-    t->addFather("Tali", "Marcell");
-    t->addMother("Tali", "Michael");
-    t->addMother("Michael", "Shoshana");
+    CHECK_NOTHROW(t->addFather(n, "Emmanuel"));
+    CHECK_NOTHROW(t->addMother(n, "Lea"));
+    CHECK_NOTHROW(t->addFather("Emmanuel", "Meir"));
+    CHECK_NOTHROW(t->addMother("Emmanuel", "Tali"));
+    CHECK_NOTHROW(t->addFather("Meir", "Chalom"));
+    CHECK_NOTHROW(t->addMother("Meir", "Yvette"));
+    CHECK_NOTHROW(t->addFather("Lea", "Avraham"));
+    CHECK_NOTHROW(t->addMother("Lea", "Sarah"));
+    CHECK_NOTHROW(t->addFather("Tali", "Michael"));
+    CHECK_NOTHROW(t->addMother("Tali", "Marcell"));
+    CHECK_NOTHROW(t->addMother("Michael", "Shoshana"));
     return t;
 }
 
-TEST_CASE("test of function relation"){
-    Tree *t;
-    t = build("Shany");
-    CHECK(t->relation("Shany") == string("me"));
-    CHECK(t->relation("Emmanuel") == string("father"));
-    CHECK(t->relation("Lea") == string("mother"));
-    CHECK(t->relation("Sarah") == string("grandmother"));
-    CHECK(t->relation("Avraham") == string("grandfather"));
-    CHECK(t->relation("Meir") == string("grandfather"));
-    CHECK(t->relation("Yvette") == string("great-grandmother"));
-    CHECK(t->relation("Michael") == string("great-grandfather"));
-}
+// TEST_CASE("test of function display") {
+//     Tree *t_display;
+//     CHECK_NOTHROW(t_display = tree_familly("Shany"));
+//     CHECK_NOTHROW(t_display->display()); 
+// }
 
-TEST_CASE("test of function find"){
-Tree *t;
-    t = build("Shany");
-    CHECK(t->find("me") == string("Shany"));
-    CHECK(t->find("father") == string("Emmanuel"));
-    CHECK(t->find("mother") == string("Lea"));
-    CHECK((t->find("grandmother") == string("Tali") || t->find("grandmother") == string("Sarah")));
-    CHECK((t->find("grandfather") == string("Meir") || t->find("grandfather") == string("Avraham")));
-    CHECK((t->find("great-grandfather") == string("Yvette") || t->find("great-grandfather") == string("Marcell")));
-    CHECK(t->find("great-great-grandmother") == string("Shoshana"));
-}
+// TEST_CASE("test of function addFather"){
+//     Tree l("Moshe");
+//     CHECK_NOTHROW(l.addFather("Moshe", "Levi"));
+//     CHECK_THROWS(l.addFather("Moshe", "Amram"));
+//     l.remove("Levi");
+//     CHECK_THROWS(l.addFather("Moshe", "Amram"));
+//     CHECK_THROWS(l.addFather("Amram", "Kehat"));
+//     CHECK_THROWS(l.addFather("Kehat", "Levi"));
+//     CHECK(l.find("me") == string("Moshe"));
+//     CHECK(l.find("father") == string("Amram"));
+//     CHECK(l.find("grandfather") == string("Kehat"));
 
-TEST_CASE("test if remove worked"){
-Tree *t;
-    t = build("Shany");
-    t->remove("Emmanuel");
-    CHECK(t->relation("Meir") == string("unrelated"));
-    CHECK(t->relation("Tali") == string("unrelated"));
-    CHECK(t->relation("Yvette") == string("unrelated"));
-    CHECK(t->relation("Shoshana") == string("unrelated"));
-    CHECK(t->relation("Michael") == string("unrelated"));
-}
+//     CHECK(l.relation("Moshe") == string("me"));
+//     CHECK(l.relation("Amram") == string("father"));
+//     CHECK(l.relation("Kehat") == string("grandfather"));
+//     CHECK(l.relation("Levi") == string("great-grandfather"));
+// }
 
-TEST_CASE("test of wrong find"){
-Tree *t;
-    t = build("Shany");
-    CHECK(t->find("uncle") == string("unrelated"));
-    CHECK(t->find("cousin") == string("unrelated"));
-    CHECK(t->find("brother") == string("unrelated"));
-    CHECK(t->find("sister") == string("unrelated"));
-}
-
-
-
-//////////////////////////////////////////////////////
-/////////////////////// Israel ///////////////////////
-//////////////////////////////////////////////////////
-//////////////////////////////////////////////////////
-
-
-Tree Israelbuild(string n){
-    Tree t(n);
-    t.addFather(n, "Yaakov");
-    t.addMother(n, "Lea");
-    t.addFather("Yaakov", "Itshak");
-    t.addMother("Yaakov", "Rivka");
-    t.addFather("Itshak", "Avraham");
-    t.addMother("Itshak", "Sarah");
-    t.addFather("Avraham", "Terah");
-    t.addFather("Rivka", "Betuel");
-    return t;
-}
-
-static Tree Israel = Israelbuild("Reuven");
-
-TEST_CASE("test of function relation"){
-    CHECK(Israel.relation("Reuven") == string("me"));
-    CHECK(Israel.relation("Yaakov") == string("father"));
-    CHECK(Israel.relation("Lea") == string("mother"));
-    CHECK(Israel.relation("Rivka") == string("grandmother"));
-    CHECK(Israel.relation("Itzhak") == string("grandfather"));
-    CHECK(Israel.relation("Avraham") == string("great-grandfather"));
-    CHECK(Israel.relation("Lavane") == string("grandfather"));
-    CHECK(Israel.relation("betuel") == string("great-great-grandfather"));
-}
-
-TEST_CASE("test of function find"){
-    CHECK(Israel.find("me") == string("Reuven"));
-    CHECK(Israel.find("father") == string("Yaakov"));
-    CHECK(Israel.find("mother") == string("Lea"));
-    CHECK(Israel.find("grandmother") == string("Rivka"));
-    CHECK((Israel.find("grandfather") == string("Itshak") || Israel.find("grandfather") == string("Lavane")));
-    CHECK((Israel.find("great-grandfather") == string("Avraham") || Israel.find("great-grandfather") == string("Betuel")));
-    CHECK(Israel.find("great-great-grandfather") == string("Terah"));
-}
-
-TEST_CASE("test if remove worked"){
-    Israel.remove("Itshak");
-    CHECK(Israel.relation("Itshak") == string("unrelated"));
-    CHECK(Israel.relation("Avraham") == string("unrelated"));
-    CHECK(Israel.relation("Sarah") == string("unrelated"));
-    CHECK(Israel.relation("Terah") == string("unrelated"));
-    CHECK(Israel.relation("Betuel") == string("unrelated"));
-}
-
-//////////////////////////////////////////////////////
-/////////////////////// KINGDOM //////////////////////
-//////////////////////////////////////////////////////
-//////////////////////////////////////////////////////
-
-Tree Kingdombuild(string n){
-    Tree t(n);
-    t.addFather(n, "Assa");
-    t.addFather("Assa", "Avia");
-    t.addFather("Avia", "Rehavam");
-    t.addFather("Rehavam", "Shelomo");
-    t.addFather("Shelomo", "David");
-    t.addFather("Shelomo", "Elisheva");
-    return t;
-}
-
-static Tree Kingdom = Kingdombuild("Yehoshfat");
+// TEST_CASE("test of function addMother"){
+//     Tree m("Sarah");
+//     CHECK_NOTHROW(m.addMother("Sarah", "Hana"));
+//     CHECK_NOTHROW(m.addMother("Hana", "Miryam"));
+//     CHECK_NOTHROW(m.addMother("Miryam", "Lea"));
+//     CHECK_NOTHROW(m.addMother("Lea", "Esther"));
+//     CHECK_THROWS(m.addMother("Lea", "Rivka"));
     
-TEST_CASE("test of function relation"){
-    CHECK(Kingdom.relation("Yehoshfat") == string("me"));
-    CHECK(Kingdom.relation("Assa") == string("father"));
-    CHECK(Kingdom.relation("Avia") == string("grandfather"));
-    CHECK(Kingdom.relation("Rehavam") == string("great-grandfather"));
-    CHECK(Kingdom.relation("Shelomo") == string("great-great-grandfather"));
-    CHECK(Kingdom.relation("David") == string("great-great-great-grandfather"));
-    CHECK(Kingdom.relation("Elisheva") == string("great-great-great-grandmother"));
-}
+//     CHECK(m.find("me") == string("Sarah"));
+//     CHECK(m.find("mother") == string("Hana"));
+//     CHECK(m.find("grandmother") == string("Miryam"));
+//     CHECK(m.find("great-grandmother") == string("Lea"));
 
-TEST_CASE("test of function find"){
-    CHECK(Kingdom.find("me") == string("Yehoshfat"));
-    CHECK(Kingdom.find("father") == string("Assa"));
-    CHECK(Kingdom.find("grandfather") == string("Avia"));
-    CHECK(Kingdom.find("great-grandfather") == string("Rehavam"));
-    CHECK(Kingdom.find("great-great-grandfather") == string("Shelomo"));
-    CHECK(Kingdom.find("great-great-great-grandfather") == string("David"));
-    CHECK(Kingdom.find("great-great-great-grandmother") == string("Elisheva"));
-}
+//     CHECK(m.relation("Sarah") == string("me"));
+//     CHECK(m.relation("Hana") == string("mother"));
+//     CHECK(m.relation("Miryam") == string("grandmother"));
+//     CHECK(m.relation("Esther") == string("great-great-grandfather"));
 
-TEST_CASE("test of wrong relation"){
-    CHECK(Kingdom.relation("Shmouel") == string("unrelated"));
-    CHECK(Kingdom.relation("Noa") == string("unrelated"));
-    CHECK(Kingdom.relation("Yeoshoua") == string("unrelated"));
-    CHECK(Kingdom.relation("Shimon") == string("unrelated"));
-    CHECK(Kingdom.relation("Eliezer") == string("unrelated"));
-    CHECK(Kingdom.relation("Binyamin") == string("unrelated"));
-    CHECK(Kingdom.relation("Shaoul") == string("unrelated"));
-    CHECK(Kingdom.relation("Yerovam") == string("unrelated"));
-    CHECK(Kingdom.relation("Yshay") == string("unrelated"));
-}
+//     m.remove("Lea");
+//     CHECK_THROWS(m.find("Lea"));
+//     CHECK_THROWS(m.find("Esther"));
+// }
 
-TEST_CASE("test of wrong find"){
-    CHECK(Kingdom.find("mother") == string("unrelated"));
-    CHECK(Kingdom.find("uncle") == string("unrelated"));
-    CHECK(Kingdom.find("cousin") == string("unrelated"));
-    CHECK(Kingdom.find("brother") == string("unrelated"));
-    CHECK(Kingdom.find("sister") == string("unrelated"));
-    CHECK(Kingdom.find("grandmother") == string("unrelated"));
-    CHECK(Kingdom.find("great-grandmother") == string("unrelated"));
-    CHECK(Kingdom.find("great-great-grandmother") == string("unrelated"));
-}
+// TEST_CASE("test of wrong find"){
+//     Tree *t_f = tree_familly("Shany");
+//     CHECK(t_f->find("uncle") == string("unrelated"));
+//     CHECK(t_f->find("cousin") == string("unrelated"));
+//     CHECK(t_f->find("brother") == string("unrelated"));
+//     CHECK(t_f->find("sister") == string("unrelated"));
+// }
+
+// //////////////////////////////////////////////////////
+// /////////////////////// Israel ///////////////////////
+// //////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////
 
 
-/////////////////////////////////////////////////////
-//////////////////// KookFamilly ////////////////////
-/////////////////////////////////////////////////////
-/////////////////////////////////////////////////////
+// Tree* AmIsrael(string n){
+//     Tree *a_i = new Tree(n);
+//     CHECK_NOTHROW(a_i->addFather(n, "Yaakov"));
+//     CHECK_NOTHROW(a_i->addMother(n, "Lea"));
+//     CHECK_NOTHROW(a_i->addFather("Yaakov", "Itshak"));
+//     CHECK_NOTHROW(a_i->addMother("Yaakov", "Rivka"));
+//     CHECK_NOTHROW(a_i->addFather("Itshak", "Avraham"));
+//     CHECK_NOTHROW(a_i->addMother("Itshak", "Sarah"));
+//     CHECK_NOTHROW(a_i->addFather("Rivka", "Betuel"));
+//     CHECK_NOTHROW(a_i->addFather("Avraham", "Terah"));
+//     CHECK_NOTHROW(a_i->addMother("Avraham", "Amtalay"));
+//     CHECK_NOTHROW(a_i->addMother("Amtalay", "Karnevo"));
+//     return a_i;
+// }
 
+// TEST_CASE("test of function relation & find"){
+//     Tree *Israel = tree_familly("Reuven");
+//     CHECK(Israel->relation("Reuven") == string("me"));
+//     CHECK(Israel->relation("Yaakov") == string("father"));
+//     CHECK(Israel->relation("Lea") == string("mother"));
+//     CHECK(Israel->relation("Rivka") == string("grandmother"));
+//     CHECK(Israel->relation("Itzhak") == string("grandfather"));
+//     CHECK(Israel->relation("Avraham") == string("great-grandfather"));
+//     CHECK(Israel->relation("betuel") == string("great-great-grandfather"));
+//     CHECK(Israel->relation("Terah") == string("great-great-grandfather"));
 
-Tree Kookmbuild(string n){
-    Tree t(n);
-    t.addFather(n, "Avraham");
-    t.addMother(n, "Rivka");
-    t.addFather("Avraham", "Shelomo");
-    t.addMother("Avraham", "Farel");
-    t.addFather("Shelomo", "Nahume");
-    return t;
-}
+//     CHECK(Israel->find("me") == string("Reuven"));
+//     CHECK(Israel->find("father") == string("Yaakov"));
+//     CHECK(Israel->find("mother") == string("Lea"));
+//     CHECK(Israel->find("grandmother") == string("Rivka"));
+//     CHECK((Israel->find("grandfather") == string("Itshak") || Israel->find("grandfather") == string("Lavane")));
+//     CHECK((Israel->find("great-grandfather") == string("Avraham") || Israel->find("great-grandfather") == string("Betuel")));
+//     CHECK(Israel->find("great-great-grandfather") == string("Terah"));
 
-static Tree KookFamilly = Kookmbuild("Tzvi");
+//  // test if remove worked
+//     Israel->remove("Itshak");
+//     CHECK_THROWS(Israel->relation("Itshak"));
+//     CHECK_THROWS(Israel->relation("Avraham"));
+//     CHECK_THROWS(Israel->relation("Sarah"));
+//     CHECK_THROWS(Israel->relation("Terah"));
+//     CHECK_THROWS(Israel->relation("Betuel"));
+//     CHECK_THROWS(Israel->relation("Amtalay"));
+//     CHECK_THROWS(Israel->relation("Karnevo"));
+// }
 
-TEST_CASE("test of function relation"){
-    CHECK(KookFamilly.relation("Tzvi") == string("me"));
-    CHECK(KookFamilly.relation("Avraham") == string("father"));
-    CHECK(KookFamilly.relation("Rivka") == string("Mother"));
-    CHECK(KookFamilly.relation("Shelomo") == string("grandfather"));
-    CHECK(KookFamilly.relation("Farel") == string("grandmother"));
-    CHECK(KookFamilly.relation("Nahume") == string("great-grandfather"));
-}
+// //////////////////////////////////////////////////////
+// /////////////////////// KINGDOM //////////////////////
+// //////////////////////////////////////////////////////
+// //////////////////////////////////////////////////////
 
-TEST_CASE("test of function find"){
-    CHECK(KookFamilly.find("me") == string("Tzvi"));
-    CHECK(KookFamilly.find("father") == string("Avraham"));
-    CHECK(KookFamilly.find("mother") == string("Rivka"));
-    CHECK(KookFamilly.find("grandfather") == string("Shelomo"));
-    CHECK(KookFamilly.find("grandmother") == string("Farel"));
-    CHECK(KookFamilly.find("great-grandfather") == string("Nahume"));
-}
+// Tree* Kingdom(string n){
+//     Tree *t = new Tree(n);
+//     CHECK_NOTHROW(t->addFather(n, "Assa"));
+//     CHECK_NOTHROW(t->addFather("Assa", "Avia"));
+//     CHECK_NOTHROW(t->addFather("Avia", "Rehavam"));
+//     CHECK_NOTHROW(t->addFather("Rehavam", "Shelomo"));
+//     CHECK_NOTHROW(t->addFather("Shelomo", "David"));
+//     CHECK_NOTHROW(t->addFather("Shelomo", "Elisheva"));
+//     return t;
+// }
+    
+// TEST_CASE("test of function relation and find"){
+//     Tree Kingdom("Yehoshafat");
+//     CHECK(Kingdom.relation("Yehoshafat") == string("me"));
+//     CHECK(Kingdom.relation("Assa") == string("father"));
+//     CHECK(Kingdom.relation("Avia") == string("grandfather"));
+//     CHECK(Kingdom.relation("Rehavam") == string("great-grandfather"));
+//     CHECK(Kingdom.relation("Shelomo") == string("great-great-grandfather"));
+//     CHECK(Kingdom.relation("David") == string("great-great-great-grandfather"));
+//     CHECK(Kingdom.relation("Elisheva") == string("great-great-great-grandmother"));
 
-TEST_CASE("test of wrong relation"){
-    CHECK(KookFamilly.relation("Emmanuel") == string("unrelated"));
-    CHECK(KookFamilly.relation("Lea") == string("unrelated"));
-    CHECK(KookFamilly.relation("Moshe") == string("unrelated"));
-    CHECK(KookFamilly.relation("Natan") == string("unrelated"));
-    CHECK(KookFamilly.relation("Rahel") == string("unrelated"));
-    CHECK(KookFamilly.relation("Aaron") == string("unrelated"));
-    CHECK(KookFamilly.relation("Adam") == string("unrelated"));
-}
+//     CHECK(Kingdom.find("me") == string("Yehoshafat"));
+//     CHECK(Kingdom.find("father") == string("Assa"));
+//     CHECK(Kingdom.find("grandfather") == string("Avia"));
+//     CHECK(Kingdom.find("great-grandfather") == string("Rehavam"));
+//     CHECK(Kingdom.find("great-great-grandfather") == string("Shelomo"));
+//     CHECK(Kingdom.find("great-great-great-grandfather") == string("David"));
+//     CHECK(Kingdom.find("great-great-great-grandmother") == string("Elisheva"));
 
-TEST_CASE("test of wrong find"){
-    CHECK(KookFamilly.find("uncle") == string("unrelated"));
-    CHECK(KookFamilly.find("cousin") == string("unrelated"));
-    CHECK(KookFamilly.find("brother") == string("unrelated"));
-    CHECK(KookFamilly.find("sister") == string("unrelated"));
-    CHECK(KookFamilly.find("great-grandmother") == string("unrelated"));
-    CHECK(KookFamilly.find("great-great-grandmother") == string("unrelated"));
-}
+//  // test of wrong relation
+//     CHECK_THROWS(Kingdom.relation("Shmouel"));
+//     CHECK_THROWS(Kingdom.relation("Noa"));
+//     CHECK_THROWS(Kingdom.relation("Yeoshoua"));
+//     CHECK_THROWS(Kingdom.relation("Shimon"));
+//     CHECK_THROWS(Kingdom.relation("Eliezer"));
+//     CHECK_THROWS(Kingdom.relation("Binyamin"));
+//     CHECK_THROWS(Kingdom.relation("Shaoul"));
+//     CHECK_THROWS(Kingdom.relation("Yerovam"));
+//     CHECK_THROWS(Kingdom.relation("Yshay"));
+//  // test of wrong find
+//     CHECK_THROWS(Kingdom.find("mother"));
+//     CHECK_THROWS(Kingdom.find("uncle"));
+//     CHECK_THROWS(Kingdom.find("cousin"));
+//     CHECK_THROWS(Kingdom.find("brother"));
+//     CHECK_THROWS(Kingdom.find("sister"));
+//     CHECK_THROWS(Kingdom.find("grandmother"));
+//     CHECK_THROWS(Kingdom.find("great-grandmother"));
+//     CHECK_THROWS(Kingdom.find("great-great-grandmother"));
+// } // 37
+
+// 37 + 32 + 44 = 113

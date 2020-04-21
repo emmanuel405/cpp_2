@@ -8,37 +8,38 @@ using namespace std;
 
 namespace family{
     class Tree{
-        public:
+    public:
         string name;
-        string relat;
+		int relat;
         Tree* mother;
         Tree* father;
-        Tree* child;
 
     // constructor
     Tree(){
         this->name = "";
+		this->relat = 0;
         this->father = NULL;
         this->mother = NULL;
-        this->child = NULL;
-    }
-    Tree(string name){
-        this->name = name;
-        this->father = NULL;
-        this->mother = NULL;
-        this->child = NULL;
     }
 
-    Tree(string name, Tree *child){
+    Tree(string name){
         this->name = name;
-        this->child = child;
+		this->relat = 0;
         this->father = NULL;
         this->mother = NULL;
     }
+
+    // Tree(string name, Tree *child){
+    //     this->name = name;
+    //     this->child = child;
+    //     this->father = NULL;
+    //     this->mother = NULL;
+    // }
 
     // destructor
     ~Tree(){
-        cout << "Dstor" << endl;
+    	delete this->father;
+    	delete this->mother;
     }
     
 
@@ -48,12 +49,15 @@ Tree& addMother(string son, string mother);
 string relation(string);
 string find(string);
 
-void remove(string name);
-void display(Tree *t);
+// void remove(string name);
+// void display();
 
 
 private:
+void print2DUtil(Tree*, int);
+void print2D(Tree*);
 
+// Tree& findName(Tree&,string,string);
 // Tree find_the_name(Tree t, string name2find);
 
 // string find_with_name(Tree t, string name2find);

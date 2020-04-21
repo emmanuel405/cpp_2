@@ -1,95 +1,151 @@
 
 #include <iostream>
 #include <string>
+#include <exception>
+#include <stdexcept>
+#include <vector>
 
 #include "FamilyTree.hpp"
+
 
 using namespace std;
 using namespace family;
 
+#define COUNT 10
+
 static string ex = "unrelated";
 
-Tree& Tree::addFather(string son, string father){
-       return *this;
+Tree& Tree::addFather(string son, string parent){
+	int r=0; // for relation of the parent
+	if(this->name == string(son)){
+		if(this->father){ // this son has already a father.
+			cout << "this son" << son << "has already a father" << endl;
+			throw runtime_error("We can't to add this father !");
+		}
+		else{ 
+			Tree* newTree = new Tree(parent);
+			this->father = newTree;
+			this->father->relat = ++r;
+			return *this;
+		}
+	}
+	else{ // Recursive addFather
+		if(this->father != NULL) {
+			this->father->addFather(son, parent);
+			this->father->relat = ++r;
+		}
+		if(this->mother != NULL) {
+			this->mother->addFather(son, parent);
+			this->father->relat = ++r;
+		}
+		return *this;
+	}
 
-    // if(this == NULL){ // if tree == null -> return "unrelated";
-    //     cout << ex << endl;
-    //     throw "The tree is empty";
-    // }
-    // Tree tmp = find_the_name(this, son);
-    // Tree *s = &tmp;
-    // if(s == NULL){
-    //     cout << ex << endl;
-    //     throw "The son not find";
-    // }
-    // else {
-    //     Tree newFather = Tree(father, s);
-    //     return *this;
-    // }
 }
 
-Tree& Tree::addMother(string son, string mother){
-    return *this;
-    // if(this == NULL){ // if tree == null -> return "unrelated";
-    //     cout << ex << endl;
-    //     throw "The tree is empty";
-    // }
-    // Tree tmp = find_the_name(this, son);
-    // Tree *s = &tmp;
-    // if(s == NULL){
-    //     cout << ex << endl;
-    //     throw "The son not find";
-    // }
-    // else {
-    //     Tree newMother = Tree(mother, s);
-    //     return *this;
-    // }
+Tree& Tree::addMother(string son, string parent){
+	int r=0; // for relation of the parent
+	if(this->name == string(son)){
+		if(this->mother){ // this son has already a mother.
+            cout << "this son " << son << " has already a mother" << endl;
+			throw runtime_error("We can't to add this father !");
+		}
+		else{ 
+			Tree* newTree = new Tree(parent);
+			this->mother = newTree;
+			return *this;
+		}
+	}
+	else{ // Recursive addMother
+		if(this->father != NULL) {
+			this->father->addMother(son, parent);
+			this->father->relat = ++r;
+		}
+		if(this->mother != NULL) {
+			this->mother->addMother(son, parent);
+			this->father->relat = ++r;
+		}
+		return *this;
+	}
 }
 
 string Tree::relation(string name){
-    return name;
-
-    // if(this == NULL){ // if tree == null -> return "unrelated";
-    //     cout << ex << endl;
-    //     throw "The tree is empty";
-    // }
-    // string ans = find_with_name(this, name); // search like inorder with this name and return the relation of this name
-    // return ans;  
+	if(this->name == string(name)){
+		// relation in vector etc
+	}
+	else{
+		if(this->father != NULL) {
+			this->father->relation(name);
+		}
+		if(this->mother != NULL) this->mother->relation(name);
+	}
+	return ex;
 }
 
 string Tree::find(string relation){
-    return relation;
-    // if(this == NULL){ // if tree == null -> return "unrelated";
-    //     cout << ex << endl;
-    //     throw "The tree is empty";
-    // }
+    
+        return ex;
     // size_t pos = str.find("mother"); ??
     // go to mother and father תלוי
     // if I find return the name of this node
 }
 
-void Tree::remove(string name){
-    cout << "part a" << endl;
+// void Tree::remove(string name){
+// 	Tree& t = *(this);
+// 	if(t.name == string(name)){
+// 		delete t;
+// 	}
+// 	else{
+// 		t.remove(t.father->name);
+// 		t.remove(t.mother->name);
+// 	}
+//     throw runtime_error("This person " + name + " don't find So we can't remove him !");
 
-    // if(this == NULL){ // if tree == null -> return "unrelated";
-    //     cout << ex << endl;
-    //     throw "The tree is empty";
-    // }
-    // search with inorder(name)
-}
+// }
 
-void Tree::display(Tree *t){
-    cout << "part a" << endl;
-   
-    // preorder(t);
-}
-
+// void Tree::display(){
+//     cout << "display" << endl;
+//     print2D(this);
+// }
 
 ////////////////////////////////////////
 /////////// private function ///////////
 ////////////////////////////////////////
 ////////////////////////////////////////
 
+// Function to print binary tree in 2D
+// It does reverse inorder traversal
+// from www.geeksforgeeks.org
+void print2DUtil(Tree *root, int space){
+    // Base case  
+    if (NULL == root) return;
+
+    // Increase distance between levels
+    space += COUNT;
+  
+    // Process father first
+    print2DUtil(root->father, space);
+  
+    // Print current node after space
+    // count
+    cout << endl;
+    for (int i = COUNT; i < space; i++)
+        cout << " " << root->name << "\n";
+  
+    // Process mother
+    print2DUtil(root->mother, space);
+}
+
+// Wrapper over print2DUtil()
+void print2D(Tree *root){
+    // Pass initial space count as 0
+    print2DUtil(root, 0);
+}
+
+// Tree& findName(Tree& root, string son, string father){
+	
+// 	return *this;
+// }
 /*
 string toRelateFather(string relat){
     string ans = "";
