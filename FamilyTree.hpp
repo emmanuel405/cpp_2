@@ -13,28 +13,29 @@ namespace family{
 		int gender;
         Tree* mother;
         Tree* father;
+        Tree* child;
 
     // constructor
     Tree(){
         this->name = "";
-		this->gender = 0;
         this->father = NULL;
         this->mother = NULL;
+        this->child = NULL;
     }
 
     Tree(string name){
         this->name = name;
-		this->gender = 0;
+        this->father = NULL;
+        this->mother = NULL;
+        this->child = NULL;
+    }
+
+    Tree(string name, Tree *child){
+        this->name = name;
+        this->child = child;
         this->father = NULL;
         this->mother = NULL;
     }
-
-    // Tree(string name, Tree *child){
-    //     this->name = name;
-    //     this->child = child;
-    //     this->father = NULL;
-    //     this->mother = NULL;
-    // }
 
     // destructor
     ~Tree(){
@@ -49,13 +50,14 @@ Tree& addMother(string son, string mother);
 string relation(string);
 string find(string);
 
-void remove(string name);
+// void remove(string name);
 // void display();
 
 
 private:
 
-string findRelation(Tree* , size_t, unsigned int);
+string findRelation(Tree*, size_t, unsigned int);
+Tree* personInTree(Tree*, string);
 
     };
 }

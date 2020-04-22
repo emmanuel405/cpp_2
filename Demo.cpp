@@ -13,26 +13,32 @@ using namespace family;
 
 int main() {
 	Tree T ("Yosef"); // Yosef is the "root" of the tree (the youngest person).
-	T.addFather("Yosef", "Yaakov");   // Tells the tree that the father of Yosef is Yaakov.
+	// T.addFather("Yosef", "Yaakov");   // Tells the tree that the father of Yosef is Yaakov.
 	T.addMother("Yosef", "Rachel");   // Tells the tree that the mother of Yosef is Rachel.
-	T.addFather("Rachel", "Isaac");
-	T.addMother("Rachel", "Rivka");
-	T.addFather("Isaac", "Avraham");
-	T.addFather("Avraham", "Terah");
+	// T.addFather("Yaakov", "Isaac");
+	// T.addMother("Yaakov", "Rivka");
+	// T.addFather("Isaac", "Avraham");
+	// T.addFather("Avraham", "Terah");
+	T.addFather("Rachel", "Lavane");
+	T.addFather("Lavane", "Betuel");
+
 
 	cout << "result:" << endl;
-	cout << T.father->mother->name << endl;
+	cout << T.find("me") << endl;
+	cout << T.find("father") << endl;
+	cout << T.find("grandfather") << endl;
+	cout << T.find("great-grandfather") << endl;
+
+	
 	/**
 	 * 						Yosef	
-	 * 				Rachel			Yaakov
-	 * 			Isaac	Rivka  
-	 *		Avraham
+	 * 				Yaakov		  		Rachel
+	 * 			Isaac	Rivka    	Lavane
+	 *		Avraham				 Betuel
 	 *	 Terah
 	 */
 
-	cout << "find: should print Isaac" << endl;  // prints "Rachel"
 	// cout << T.find("mother") << endl;  // prints "Rachel"
-	cout << T.find("grandfather") << endl;
 	
 	// //T.display();                        // displays the tree in a human-friendly format.
 

@@ -15,9 +15,10 @@ using namespace family;
 
 #define COUNT 10
 
-static string ex = "unrelated";
+static string EXIT = "unrelated";
 string help = "";
 string ans = "";
+int jumping = 0;
 
 
 Tree& Tree::addFather(string son, string parent){
@@ -28,7 +29,7 @@ Tree& Tree::addFather(string son, string parent){
 			throw runtime_error("We can't to add this father !");
 		}
 		else{ 
-			Tree* newTree = new Tree(parent);
+			Tree* newTree = new Tree(parent, this);
 			this->father = newTree;
 			this->father->gender = 1;
 			return *this;
@@ -54,7 +55,7 @@ Tree& Tree::addMother(string son, string parent){
 			throw runtime_error("We can't to add this father !");
 		}
 		else{ 
-			Tree* newTree = new Tree(parent);
+			Tree* newTree = new Tree(parent, this);
 			this->mother = newTree;
 			this->mother->gender = 2;
 			return *this;
@@ -71,18 +72,40 @@ Tree& Tree::addMother(string son, string parent){
 	}
 }
 
+// void Tree::remove(string name){
+// 	Tree* t = personInTree(this, name);
+// 	t->~Tree();
+// }
+
 
 string Tree::relation(string name){
-	if(this->name == string(name)){
-		// relation in vector etc
+	if(this->name == string(name)) return "me";
+	if(this->father->name == string(name)) return "father";
+	if(this->mother->name == string(name)) return "mother";
+
+	Tree* t = personInTree(this, name);
+	Tree* tmp = t;
+	int count = 0;
+	while(tmp->child != NULL){
+		count++;
+		tmp = tmp->child;
 	}
-	else{
-		if(this->father != NULL) {
-			this->father->relation(name);
-		}
-		if(this->mother != NULL) this->mother->relation(name);
+
+	if(count == 2){
+		if(t->gender == 1) return "grandfather";
+		return "grandmother";
 	}
-	return ex;
+	string answer = "";
+	if(count > 2){
+		for(int i=2; i<count; i++)
+			answer += "great-";
+
+		if(t->gender == 1)
+			 answer += "grandfather";
+		else answer += "grandmother";
+	return answer;
+	}
+	return EXIT;
 }
 
 
@@ -123,31 +146,6 @@ string Tree::find(string relat){
 		
 	}
 }
-// is not a string (great-)^*grandfather
-	// size_t pos = str.find("mother"); ??
-	// go to mother and father תלוי
-	// if I find return the name of this node
-
-void Tree::remove(string name){
-	if(this->name == string(name)){
-		this->~Tree();
-	}
-	else{
-		this->remove(this->father->name);
-		this->remove(this->mother->name);
-	}
-	throw runtime_error("This person " + name + " don't find So we can't remove him !");
-}
-
-// void Tree::display(){
-//     cout << "display" << endl;
-//     print2D(this);
-// }
-
-////////////////////////////////////////
-/////////// private function ///////////
-////////////////////////////////////////
-////////////////////////////////////////
 
 /**
  * findRelation
@@ -161,17 +159,18 @@ void Tree::remove(string name){
  * @return The name of who I am looking for
  */
 string Tree::findRelation(Tree* t, size_t num, unsigned int gender){ 
+	
 	switch(num)
 	{
 		case 1:
-		if(gender == 1){
+		if(gender == 1){ // man
 			if(t->father != NULL)
 				return t->father->name;
 			num++;
 			return "";
 		}
-		else{ // gender == 2
-			if(t->mother != NULL)	
+		else{ // gender == 2 -> woman
+			if(t->mother != NULL)
 				return t->mother->name;
 			num++;
 			return "";
@@ -202,6 +201,35 @@ string Tree::findRelation(Tree* t, size_t num, unsigned int gender){
 
 
 }
+// void Tree::display(){
+//     cout << "display" << endl;
+//     print2D(this);
+// }
+
+////////////////////////////////////////
+/////////// private function ///////////
+////////////////////////////////////////
+////////////////////////////////////////
+
+
+
+/**
+ * personInTree
+ * @param name
+ * like post-order
+ * 
+ * @return Tree* who I search 
+ */
+Tree* Tree::personInTree(Tree* t, string name){
+	if(t->father != NULL)
+		t = personInTree(t->father, name);
+	if(t->mother != NULL)
+		t = personInTree(t->mother, name);
+	if(t->name == string(name))
+		return t;
+	return t->child;
+}
+
 
 // Function to print binary tree in 2D
 // It does reverse inorder traversal
@@ -226,69 +254,8 @@ string Tree::findRelation(Tree* t, size_t num, unsigned int gender){
 //     print2DUtil(root->mother, space);
 // }
 
-// // Wrapper over print2DUtil()
+// Wrapper over print2DUtil()
 // void print2D(Tree *root){
 //     // Pass initial space count as 0
 //     print2DUtil(root, 0);
 // }
-
-// Tree& findName(Tree& root, string son, string father){
-	
-// 	return *this;
-// }
-/*
-string toRelateFather(string relat){
-	string ans = "";
-	if(relat == string("me"))
-		return "father";
-	else if(relat == string("father"))
-		return "grandfather";
-	else{
-		ans = "great-"+relat;
-		return ans;
-	}
-
-}
-
-string toRelateMother(string relat){
-	string ans = "";
-	if(relat == string("me"))
-		return "mother";
-	else if(relat == string("mother"))
-		return "grandmother";
-	else{
-		ans = "great-"+relat;
-		return ans;
-	}
-}
-
-void preorder(Tree *t){
-	if(t == NULL)
-		return;
-	cout << t->name << endl;
-	preorder(t->mother);
-	preorder(t->father);
-}
-
-string find_with_name(Tree t, string name2find){
-	if(t.name == name2find) return t.relat;
-	find_with_name(t.mother, name2find);
-	find_with_name(t.father, name2find);
-	return "unrelated";
-}
-
-Tree find_the_name(Tree t, string name2find){
-	if(t.name == name2find) return t;
-	find_the_name(t.mother, name2find);
-	find_the_name(t.father, name2find);
-	return NULL;
-}
-
-
-addFather
-addMother
-relation(string name) -> relation
-find(string relation) -> name
-display(תצוגה)
-remove(string name)
-*/
