@@ -7,21 +7,21 @@
 using namespace std;
 using namespace family;
 
-Tree* tree_familly(string n){
-    Tree *t = new Tree(n);
-    CHECK_NOTHROW(t->addFather(n, "Emmanuel"));
-    CHECK_NOTHROW(t->addMother(n, "Lea"));
-    CHECK_NOTHROW(t->addFather("Emmanuel", "Meir"));
-    CHECK_NOTHROW(t->addMother("Emmanuel", "Tali"));
-    CHECK_NOTHROW(t->addFather("Meir", "Chalom"));
-    CHECK_NOTHROW(t->addMother("Meir", "Yvette"));
-    CHECK_NOTHROW(t->addFather("Lea", "Avraham"));
-    CHECK_NOTHROW(t->addMother("Lea", "Sarah"));
-    CHECK_NOTHROW(t->addFather("Tali", "Michael"));
-    CHECK_NOTHROW(t->addMother("Tali", "Marcell"));
-    CHECK_NOTHROW(t->addMother("Michael", "Shoshana"));
-    return t;
-}
+// Tree* tree_familly(string n){
+//     Tree *t = new Tree(n);
+//     CHECK_NOTHROW(t->addFather(n, "Emmanuel"));
+//     CHECK_NOTHROW(t->addMother(n, "Lea"));
+//     CHECK_NOTHROW(t->addFather("Emmanuel", "Meir"));
+//     CHECK_NOTHROW(t->addMother("Emmanuel", "Tali"));
+//     CHECK_NOTHROW(t->addFather("Meir", "Chalom"));
+//     CHECK_NOTHROW(t->addMother("Meir", "Yvette"));
+//     CHECK_NOTHROW(t->addFather("Lea", "Avraham"));
+//     CHECK_NOTHROW(t->addMother("Lea", "Sarah"));
+//     CHECK_NOTHROW(t->addFather("Tali", "Michael"));
+//     CHECK_NOTHROW(t->addMother("Tali", "Marcell"));
+//     CHECK_NOTHROW(t->addMother("Michael", "Shoshana"));
+//     return t;
+// }
 
 // TEST_CASE("test of function display") {
 //     Tree *t_display;
@@ -29,23 +29,23 @@ Tree* tree_familly(string n){
 //     CHECK_NOTHROW(t_display->display()); 
 // }
 
-// TEST_CASE("test of function addFather"){
-//     Tree l("Moshe");
-//     CHECK_NOTHROW(l.addFather("Moshe", "Levi"));
-//     CHECK_THROWS(l.addFather("Moshe", "Amram"));
-//     l.remove("Levi");
-//     CHECK_THROWS(l.addFather("Moshe", "Amram"));
-//     CHECK_THROWS(l.addFather("Amram", "Kehat"));
-//     CHECK_THROWS(l.addFather("Kehat", "Levi"));
-//     CHECK(l.find("me") == string("Moshe"));
-//     CHECK(l.find("father") == string("Amram"));
-//     CHECK(l.find("grandfather") == string("Kehat"));
+TEST_CASE("test of function addFather"){
+    Tree l("Moshe");
+    CHECK_NOTHROW(l.addFather("Moshe", "Levi"));
+    CHECK_THROWS(l.addFather("Moshe", "Amram"));
+    // l.remove("Levi");
+    // CHECK_THROWS(l.addFather("Moshe", "Amram"));
+    // CHECK_THROWS(l.addFather("Amram", "Kehat"));
+    // CHECK_THROWS(l.addFather("Kehat", "Levi"));
+    CHECK(l.find("me") == string("Moshe"));
+    CHECK(l.find("father") == string("Amram"));
+    CHECK(l.find("grandfather") == string("Kehat"));
 
 //     CHECK(l.relation("Moshe") == string("me"));
 //     CHECK(l.relation("Amram") == string("father"));
 //     CHECK(l.relation("Kehat") == string("grandfather"));
 //     CHECK(l.relation("Levi") == string("great-grandfather"));
-// }
+}
 
 // TEST_CASE("test of function addMother"){
 //     Tree m("Sarah");
