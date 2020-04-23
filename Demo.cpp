@@ -17,17 +17,24 @@ int main() {
 	T.addMother("Yosef", "Rachel");   // Tells the tree that the mother of Yosef is Rachel.
 	T.addFather("Yaakov", "Isaac");
 	// T.addMother("Yaakov", "Rivka");
-	// T.addFather("Isaac", "Avraham");
-	// T.addFather("Avraham", "Terah");
+	T.addFather("Isaac", "Avraham");
+	T.addFather("Avraham", "Terah");
 	// T.addFather("Rachel", "Lavane");
 	// T.addFather("Lavane", "Betuel");
 
+	cout << "result:" << endl;
 	T.remove("Isaac"); // removes Avraham and Terah
+	
+	cout << T.relation("Isaac") << endl;
+	
+
+	cout << T.relation("Terah") << endl;
+	cout << T.relation("Avraham") << endl;
+
+
 	
 	// cout << T.relation("Terah") << endl;  // prints "unrelated"
 
-	cout << "result:" << endl;
-	cout << T.relation("Isaac") << endl;
 	// cout << T.relation("Yaakov") << endl;  // prints "father"
 	// cout << T.relation("Rachel") << endl;  // prints "mother"
 	// cout << T.relation("Rivka") << endl;  // prints "grandmother"

@@ -38,9 +38,10 @@ namespace family{
     }
 
     // destructor
-    ~Tree();
-    	// delete this->father;
-    	// delete this->mother;
+    ~Tree(){
+    	delete this->father;
+    	delete this->mother;
+    }
       
 
 Tree& addFather(string son, string father);

@@ -18,11 +18,7 @@ static string EXIT = "unrelated";
 string help = "";
 string ans = "";
 
-Tree::~Tree(){
-	cout << "yo" << endl;
-	if(this->father != NULL) this->father->~Tree();
-	if(this->mother != NULL) this->mother->~Tree();
-}
+
 
 Tree& Tree::addFather(string son, string parent){
 	int r=0; // for relation of the parent
@@ -150,8 +146,17 @@ string Tree::find(string relat){
 }
 
 void Tree::remove(string name){
+	if(this->name == string(name))
+		throw runtime_error("Can't remove root");
+	
 	Tree* t = personInTree(this, name);
-	t->~Tree();
+	Tree* tmp;
+	tmp = t->child;
+	int g = t->gender;
+
+	delete t;
+	if(g == 1) tmp->father = NULL;
+	else tmp->mother = NULL;
 }
 
 // void Tree::display(){
