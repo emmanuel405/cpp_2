@@ -13,21 +13,34 @@ using namespace family;
 
 int main() {
 	Tree T ("Yosef"); // Yosef is the "root" of the tree (the youngest person).
-	// T.addFather("Yosef", "Yaakov");   // Tells the tree that the father of Yosef is Yaakov.
+	T.addFather("Yosef", "Yaakov");   // Tells the tree that the father of Yosef is Yaakov.
 	T.addMother("Yosef", "Rachel");   // Tells the tree that the mother of Yosef is Rachel.
-	// T.addFather("Yaakov", "Isaac");
+	T.addFather("Yaakov", "Isaac");
 	// T.addMother("Yaakov", "Rivka");
 	// T.addFather("Isaac", "Avraham");
 	// T.addFather("Avraham", "Terah");
-	T.addFather("Rachel", "Lavane");
-	T.addFather("Lavane", "Betuel");
+	// T.addFather("Rachel", "Lavane");
+	// T.addFather("Lavane", "Betuel");
 
+	T.remove("Isaac"); // removes Avraham and Terah
+	
+	// cout << T.relation("Terah") << endl;  // prints "unrelated"
 
 	cout << "result:" << endl;
-	cout << T.find("me") << endl;
-	cout << T.find("father") << endl;
-	cout << T.find("grandfather") << endl;
-	cout << T.find("great-grandfather") << endl;
+	cout << T.relation("Isaac") << endl;
+	// cout << T.relation("Yaakov") << endl;  // prints "father"
+	// cout << T.relation("Rachel") << endl;  // prints "mother"
+	// cout << T.relation("Rivka") << endl;  // prints "grandmother"
+	// cout << T.relation("Avraham") << endl;  // prints "great-grandfather"
+	// cout << T.relation("Terah") << endl;  // prints "great-great-grandfather"
+	// cout << T.relation("Yosef") << endl;  // prints "me"
+	// cout << T.find("great-great-grandfather") << endl;  // prints "Terah"
+	// cout << T.relation("xyz") << endl;  // prints "unrelated"
+	
+	// cout << T.find("me") << endl;
+	// cout << T.find("father") << endl;
+	// cout << T.find("grandfather") << endl;
+	// cout << T.find("great-grandfather") << endl;
 
 	
 	/**
@@ -42,14 +55,6 @@ int main() {
 	
 	// //T.display();                        // displays the tree in a human-friendly format.
 
-	// cout << T.relation("Yaakov") << endl;  // prints "father"
-	// cout << T.relation("Rachel") << endl;  // prints "mother"
-	// cout << T.relation("Rivka") << endl;  // prints "grandmother"
-	// cout << T.relation("Avraham") << endl;  // prints "great-grandfather"
-	// cout << T.relation("Terah") << endl;  // prints "great-great-grandfather"
-	// cout << T.relation("xyz") << endl;  // prints "unrelated"
-	// cout << T.relation("Yosef") << endl;  // prints "me"
-	// cout << T.find("great-great-grandfather") << endl;  // prints "Avraham"
 
 	// try {
 	// 	cout << T.find("uncle") << endl;  // throws an exception
@@ -57,8 +62,6 @@ int main() {
 	//  	cout << ex.what() << endl;  // prints "The tree cannot handle the 'uncle' relation"
 	// }
 
-	// T.remove("Avraham"); // removes Avraham and Terah
-	// cout << T.relation("Terah") << endl;  // prints "unrelated"
 
     return 0;
 }

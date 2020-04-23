@@ -9,7 +9,6 @@
 
 #include "FamilyTree.hpp"
 
-
 using namespace std;
 using namespace family;
 
@@ -18,8 +17,12 @@ using namespace family;
 static string EXIT = "unrelated";
 string help = "";
 string ans = "";
-int jumping = 0;
 
+Tree::~Tree(){
+	cout << "yo" << endl;
+	if(this->father != NULL) this->father->~Tree();
+	if(this->mother != NULL) this->mother->~Tree();
+}
 
 Tree& Tree::addFather(string son, string parent){
 	int r=0; // for relation of the parent
@@ -72,18 +75,13 @@ Tree& Tree::addMother(string son, string parent){
 	}
 }
 
-// void Tree::remove(string name){
-// 	Tree* t = personInTree(this, name);
-// 	t->~Tree();
-// }
-
-
 string Tree::relation(string name){
 	if(this->name == string(name)) return "me";
 	if(this->father->name == string(name)) return "father";
 	if(this->mother->name == string(name)) return "mother";
 
 	Tree* t = personInTree(this, name);
+	if (t == NULL) return EXIT;
 	Tree* tmp = t;
 	int count = 0;
 	while(tmp->child != NULL){
@@ -108,19 +106,23 @@ string Tree::relation(string name){
 	return EXIT;
 }
 
-
 string Tree::find(string relat){
-
 	if(relat == string("me"))
 		return this->name;
 	
-	else if(relat == string("father"))
-		return this->father->name;
+	if(relat == string("father")){
+		if(this->father != NULL)
+			return this->father->name;
+		throw runtime_error("Not find");
+	}
 
-	else if(relat == string("mother"))
-		return this->mother->name;
+	if(relat == string("mother")){
+		if(this->mother != NULL)
+			return this->mother->name;
+		throw runtime_error("Not find");
+	}
 
-	else{
+	if(goodRelation(relat)){
 		size_t f = relat.find("grandfather");
 		if((f >= 0) && (f < relat.length())){
 			f = f/6; // How many times "great-" appear
@@ -128,9 +130,8 @@ string Tree::find(string relat){
 			ans = findRelation(this,f,1);
 			if(ans != "")
 				return ans;
-			throw runtime_error("failed in f");
+			throw runtime_error("failed");
 		}
-
 		else{
 			size_t m = relat.find("grandmother");
 			if((m >= 0) && m < relat.length()){
@@ -139,12 +140,85 @@ string Tree::find(string relat){
 				ans = findRelation(this,m,2);
 				if(ans != "")
 					return ans;
-				throw runtime_error("failed in m");
+				throw runtime_error("failed");
 			}
-			else throw runtime_error("wow"); 
+			else throw runtime_error("Wrong relation !"); 
 		}
-		
 	}
+	else throw runtime_error("Wrong relation !"); 
+	
+}
+
+void Tree::remove(string name){
+	Tree* t = personInTree(this, name);
+	t->~Tree();
+}
+
+// void Tree::display(){
+//     cout << "display" << endl;
+//     print2D(this);
+// }
+
+////////////////////////////////////////
+/////////// private function ///////////
+////////////////////////////////////////
+////////////////////////////////////////
+
+/**
+ * Check if put a correct string of relation
+ *
+ * CALLED BY -> Tree::find 
+ */
+bool Tree::goodRelation(string relat){
+	if((relat == string("grandfather")) || (relat == string("grandmother")))
+		return true;
+	size_t m = relat.find("grandmother");
+	if((m >= 0) && (m < relat.length())) {
+		for (int i = 0; i < m; i++){
+			if(i%6 == 0){
+				if(relat[i] != 'g') return false;
+			}
+			else if(i%6 == 1){
+				if(relat[i] != 'r') return false;
+			}
+			else if(i%6 == 2){
+				if(relat[i] != 'e') return false;
+			}
+			else if(i%6 == 3){
+				if(relat[i] != 'a') return false;
+			}
+			else if(i%6 == 4){
+				if(relat[i] != 't') return false;
+			}
+			else if(i%6 == 5){
+				if(relat[i] != '-') return false;
+			}
+		}
+	}
+	m = relat.find("grandfather");
+	if((m >= 0) && (m < relat.length())){
+		for (int i = 0; i < m; i++){
+			if(i%6 == 0){
+				if(relat[i] != 'g') return false;
+			}
+			else if(i%6 == 1){
+				if(relat[i] != 'r') return false;
+			}
+			else if(i%6 == 2){
+				if(relat[i] != 'e') return false;
+			}
+			else if(i%6 == 3){
+				if(relat[i] != 'a') return false;
+			}
+			else if(i%6 == 4){
+				if(relat[i] != 't') return false;
+			}
+			else if(i%6 == 5){
+				if(relat[i] != '-') return false;
+			}
+		}
+	} 
+	return true;
 }
 
 /**
@@ -156,6 +230,7 @@ string Tree::find(string relat){
  * I need to jump a first time to father/mother
  * and one more time to grandfather
  * 
+ * CALLED BY -> Tree::find
  * @return The name of who I am looking for
  */
 string Tree::findRelation(Tree* t, size_t num, unsigned int gender){ 
@@ -201,23 +276,13 @@ string Tree::findRelation(Tree* t, size_t num, unsigned int gender){
 
 
 }
-// void Tree::display(){
-//     cout << "display" << endl;
-//     print2D(this);
-// }
-
-////////////////////////////////////////
-/////////// private function ///////////
-////////////////////////////////////////
-////////////////////////////////////////
-
-
 
 /**
  * personInTree
  * @param name
  * like post-order
  * 
+ * CALLED BY -> Tree::relation
  * @return Tree* who I search 
  */
 Tree* Tree::personInTree(Tree* t, string name){
@@ -230,10 +295,9 @@ Tree* Tree::personInTree(Tree* t, string name){
 	return t->child;
 }
 
-
-// Function to print binary tree in 2D
-// It does reverse inorder traversal
-// from www.geeksforgeeks.org
+// // Function to print binary tree in 2D
+// // It does reverse inorder traversal
+// // from www.geeksforgeeks.org
 // void print2DUtil(Tree *root, int space){
 //     // Base case  
 //     if (NULL == root) return;
@@ -254,7 +318,8 @@ Tree* Tree::personInTree(Tree* t, string name){
 //     print2DUtil(root->mother, space);
 // }
 
-// Wrapper over print2DUtil()
+// // Wrapper over print2DUtil()
+// // from www.geeksforgeeks.org
 // void print2D(Tree *root){
 //     // Pass initial space count as 0
 //     print2DUtil(root, 0);
