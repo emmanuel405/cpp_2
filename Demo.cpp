@@ -23,31 +23,23 @@ int main() {
 	// T.addFather("Lavane", "Betuel");
 
 	cout << "result:" << endl;
-	T.remove("Isaac"); // removes Avraham and Terah
-	
-	cout << T.relation("Isaac") << endl;
-	
-
-	cout << T.relation("Terah") << endl;
-	cout << T.relation("Avraham") << endl;
-
 
 	
-	// cout << T.relation("Terah") << endl;  // prints "unrelated"
+	cout << T.relation("Terah") << endl;  // prints "unrelated"
 
-	// cout << T.relation("Yaakov") << endl;  // prints "father"
-	// cout << T.relation("Rachel") << endl;  // prints "mother"
-	// cout << T.relation("Rivka") << endl;  // prints "grandmother"
-	// cout << T.relation("Avraham") << endl;  // prints "great-grandfather"
-	// cout << T.relation("Terah") << endl;  // prints "great-great-grandfather"
-	// cout << T.relation("Yosef") << endl;  // prints "me"
-	// cout << T.find("great-great-grandfather") << endl;  // prints "Terah"
-	// cout << T.relation("xyz") << endl;  // prints "unrelated"
+	cout << T.relation("Yaakov") << endl;  // prints "father"
+	cout << T.relation("Rachel") << endl;  // prints "mother"
+	cout << T.relation("Rivka") << endl;  // prints "grandmother"
+	cout << T.relation("Avraham") << endl;  // prints "great-grandfather"
+	cout << T.relation("Terah") << endl;  // prints "great-great-grandfather"
+	cout << T.relation("Yosef") << endl;  // prints "me"
+	cout << T.find("great-great-grandfather") << endl;  // prints "Terah"
+	cout << T.relation("xyz") << endl;  // prints "unrelated"
 	
-	// cout << T.find("me") << endl;
-	// cout << T.find("father") << endl;
-	// cout << T.find("grandfather") << endl;
-	// cout << T.find("great-grandfather") << endl;
+	cout << T.find("me") << endl;
+	cout << T.find("father") << endl;
+	cout << T.find("grandfather") << endl;
+	cout << T.find("great-grandfather") << endl;
 
 	
 	/**
@@ -58,16 +50,17 @@ int main() {
 	 *	 Terah
 	 */
 
-	// cout << T.find("mother") << endl;  // prints "Rachel"
+	cout << T.find("mother") << endl;  // prints "Rachel"
 	
-	// //T.display();                        // displays the tree in a human-friendly format.
+	cout << "Display:" << endl;  // prints "Rachel"
+	T.display();                        // displays the tree in a human-friendly format.
 
 
-	// try {
-	// 	cout << T.find("uncle") << endl;  // throws an exception
-	// } catch (const exception& ex) {
-	//  	cout << ex.what() << endl;  // prints "The tree cannot handle the 'uncle' relation"
-	// }
+	try {
+		cout << T.find("uncle") << endl;  // throws an exception
+	} catch (const exception& ex) {
+	 	cout << ex.what() << endl;  // prints "The tree cannot handle the 'uncle' relation"
+	}
 
 
     return 0;

@@ -51,10 +51,14 @@ string relation(string);
 string find(string);
 
 void remove(string name);
-// void display();
+void display();
 
 
 private:
+
+void print2DUtil(Tree *, int);
+void print2D(Tree *);
+
 bool goodRelation(string);
 string findRelation(Tree*, size_t, unsigned int);
 Tree* personInTree(Tree*, string);

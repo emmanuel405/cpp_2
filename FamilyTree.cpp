@@ -116,6 +116,17 @@ string Tree::relation(string name){
 	return EXIT;
 }
 
+/**
+ * I check if this is a good relation
+ * if no -> exception.
+ * else;
+ * I take a place of "grandfather" / "grandmother" => to index
+ * if this index = 0 so the string equals to their string
+ * if index > 0 so this say that writing "great-" a many times befor "relat"
+ * to jump:
+ * "great-" = 6 char. so if we do: index = index/6 we give a times that write "great-"
+ * and add 2 fo jumping over root and father/mother 
+ */
 string Tree::find(string relat){
 	if(relat == string("me"))
 		return this->name;
@@ -173,10 +184,9 @@ void Tree::remove(string name){
 	else tmp->mother = NULL;
 }
 
-// void Tree::display(){
-//     cout << "display" << endl;
-//     print2D(this);
-// }
+void Tree::display(){
+    print2D(this);
+}
 
 ////////////////////////////////////////
 /////////// private function ///////////
@@ -314,32 +324,36 @@ Tree* Tree::personInTree(Tree* t, string name){
 	return t->child;
 }
 
-// // Function to print binary tree in 2D
-// // It does reverse inorder traversal
-// // from www.geeksforgeeks.org
-// void print2DUtil(Tree *root, int space){
-//     // Base case  
-//     if (NULL == root) return;
+/**
+ * Function to print binary tree in 2D
+ * It does reverse inorder traversal
+ * from www.geeksforgeeks.org
+ */ 
+void Tree::print2DUtil(Tree *root, int space){
+    // Base case  
+    if (NULL == root) return;
 
-//     // Increase distance between levels
-//     space += COUNT;
+    // Increase distance between levels
+    space += COUNT;
 
-//     // Process father first
-//     print2DUtil(root->father, space);
+    // Process father first
+    print2DUtil(root->father, space);
 
-//     // Print current node after space
-//     // count
-//     cout << endl;
-//     for (int i = COUNT; i < space; i++)
-//         cout << " " << root->name << "\n";
+    // Print current node after space
+    // count
+    cout << endl;
+    for (int i = COUNT; i < space; i++)
+        cout << " " << root->name << "\n";
 
-//     // Process mother
-//     print2DUtil(root->mother, space);
-// }
+    // Process mother
+    print2DUtil(root->mother, space);
+}
 
-// // Wrapper over print2DUtil()
-// // from www.geeksforgeeks.org
-// void print2D(Tree *root){
-//     // Pass initial space count as 0
-//     print2DUtil(root, 0);
-// }
+/**
+ * Wrapper over print2DUtil()
+ * from www.geeksforgeeks.org 
+ */
+void Tree::print2D(Tree *root){
+    // Pass initial space count as 0
+    print2DUtil(root, 0);
+}
