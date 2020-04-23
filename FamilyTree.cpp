@@ -19,7 +19,10 @@ string help = "";
 string ans = "";
 
 
-
+/**
+ * with reccursia we find the place of the son
+ * and put him here father 
+ */
 Tree& Tree::addFather(string son, string parent){
 	int r=0; // for relation of the parent
 	if(this->name == string(son)){
@@ -46,6 +49,10 @@ Tree& Tree::addFather(string son, string parent){
 
 }
 
+/**
+ * with reccursia we find the place of the son
+ * and put him here mother 
+ */
 Tree& Tree::addMother(string son, string parent){
 	int r=0; // for relation of the parent
 	if(this->name == string(son)){
@@ -71,6 +78,13 @@ Tree& Tree::addMother(string son, string parent){
 	}
 }
 
+/**
+ * we check if this name is already in the tree. if no RETURN EXIT
+ * else
+ * we comme back to the root and we count the times of we jump [-> count]
+ * @example for grandfather/grandmother = 2 jump
+ * all jump after that we write "great-"
+ */
 string Tree::relation(string name){
 	if(this->name == string(name)) return "me";
 	if(this->father->name == string(name)) return "father";
